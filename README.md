@@ -11,13 +11,19 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 # QuickRoute
+[![pub package](https://img.shields.io/pub/v/quick_router.svg)](https://pub.dev/packages/quick_router)
+
 A quick routing mechanism for [Flutter](https://flutter.dev/) to handle deep linking on a hurry. 
 
 ## Getting started
 
 Import the package and just create as many `QuickRoute` widgets as you need, they can be nested in which case they will start analazing the path where their parent left of.
 
-## Usage 
+## Install 
+
+```bash
+flutter pub add quick_router
+```
 
 In this example `onGenerateRoute` is being used, but the QuickRoute just needs a `path` (a url) and it will cascade down while analyzing the path's segments.
 
