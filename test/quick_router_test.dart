@@ -43,20 +43,32 @@ void main() {
     expect(titleFinder, findsOneWidget);
     expect(childFinder, findsOneWidget);
   });
+
+  testWidgets('Exact url math', (tester) async {
+
+    await tester.pumpWidget(TestWidget(path: "/jam/one", mainPattern: "/", exact: true,  ));
+    
+    final titleFinder = find.text("Parent test;");
+
+    expect(titleFinder, findsNothing);  
+
+  });
 }
 
 class TestWidget extends StatelessWidget {
-  const TestWidget({super.key, this.path, this.childParamKey = "wildcard"});
+  const TestWidget({super.key, this.path, this.childParamKey = "wildcard", this.exact=false, this.mainPattern="/test"});
 
   final String? path;
   final String childParamKey;
+  final bool exact;
+  final String mainPattern;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Path Demo',
       home: Scaffold( 
-        body: QuickRoute(path: path, match: "/test", child: Column(children: [
+        body: QuickRoute(path: path, match: mainPattern, exact: exact, child: Column(children: [
           Text("Parent test;"),
           QuickRoute(child: Text("test #1;"), match: "/one"),
           QuickRoute(child: ChildTest(paramKey:childParamKey), match: "/two/:wildcard"),

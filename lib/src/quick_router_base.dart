@@ -29,16 +29,19 @@ class QuickRoute extends StatelessWidget {
     Map<String, String> params = path!=null || routeContext?.params.isEmpty == true? {} : Map.from( routeContext!.params );
 
     if( $path == null )
-    { 
-      return Text("[Route no tiene path]"); //empty
+    {  
+      // you forgot to add a value to the "path" property of the top-most QuickRoute
+      return Text("[This QuickRoute has no path!]"); //empty
     }
 
     if( path!=null ) //we are the top-most quick route...
     {
+      // extract hash parameters
       var tmp = $path.split("#");
       $path = tmp[0];
       tmp.length==2 ? appendKeyVals("#", tmp[1], params) : null;
 
+      // extract querystring parameters
       tmp = $path.split("?");
       $path = tmp[0];
       tmp.length==2 ? appendKeyVals("?", tmp[1], params) : null;
