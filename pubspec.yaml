@@ -1,6 +1,6 @@
 name: quick_router
 description: A quick router for people in a hurry...
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/bandinopla/quick_router
 
 environment:
