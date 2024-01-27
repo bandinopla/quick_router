@@ -1,17 +1,7 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 # QuickRoute
 [![pub package](https://img.shields.io/pub/v/quick_router.svg)](https://pub.dev/packages/quick_router)
+
+![Alt Text](https://media.giphy.com/media/l2Sqg1iEWObH3oz2E/giphy.gif)
 
 A quick routing mechanism for [Flutter](https://flutter.dev/) to handle deep linking on a hurry. 
 
@@ -24,6 +14,8 @@ Import the package and just create as many `QuickRoute` widgets as you need, the
 ```bash
 flutter pub add quick_router
 ```
+
+## Usage
 
 In this example `onGenerateRoute` is being used, but the QuickRoute just needs a `path` (a url) and it will cascade down while analyzing the path's segments.
 
@@ -49,7 +41,7 @@ Each route creates a context that can be accessed calling `context.quickRouteCon
 
 The method `T param<T>(String paramKey)` allows you to cast the param to a specific type.
 
-## Parameters
+## Get Url Parameters
 You get them from the build context of your widget, like so:
 ```dart
   @override
@@ -65,5 +57,20 @@ You get them from the build context of your widget, like so:
 
 There are 3 types of parameters:
 1. **URL SEGMENT** that look like this `/some/:wildcard/path` in this case **wildcard** will be a parameter that will match anything between the slashes.
+```dart
+// let's the match pattern was: /some/awesome/:wildcard/path
+// and path is: /some/awesome/impressive/path
+var myParamValue = context.quickRouteContext?.param<String>("wildcard"); //== "impressive"
+```
 2. **QUERY STRING** anything in the querystring portion will be added to the params bag with the `?` prefix. So `/some/url?nice=string&foo=bar` will add `?nice` and `?foo` to the params.
+```dart
+// let's the match pattern was: /some/awesome/path
+// and path is: /some/awesome/path?and=some&query=value
+var myParamValue = context.quickRouteContext?.param<String>("?query"); //== "value"
+```
 3. **HASH** same as with querystring but for hash values: `/some/path#foo=bar&batman=forever` will have `#foo` and `#batman` in the params
+```dart
+// let's the match pattern was: /some/awesome/path
+// and path is: /some/awesome/path#and=some&query=value
+var myParamValue = context.quickRouteContext?.param<String>("#query"); //== "value"
+```
